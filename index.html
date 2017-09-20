@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Local Roast</title>
+
+    <!-- latest uncompressed jquerry -->
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
+  <!-- Compiled and minified CSS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+ <!-- Compiled and minified JavaScript -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+  <!-- master css -->
+  <link rel="stylesheet" href="master.css">
+
+  <!-- materialize icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- FONTS -->
+  <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
+
+  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
+ <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+ <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+  <!-- main javascript -->
+  <script src="main.js"></script>
+  <!-- app javascript -->
+  <script src="app.js"></script>
+  
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACc8G1DfKQ22hXQTxM8AuJWLDbmZb2Ijo&libraries=places&callback=initMap">
+  </script>
+  </head>
+    <body>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper white">
+            <a href="index.html" class="brand-logo center black-text" id="headFont">Local Roast</a>
+          </div>
+        </nav>
+      </div>
+      <div class="row" id="container">
+        <div id="imgSpan">
+          <div id="imgFrost">
+            <div class="col s12 m10 l6 offset-l3 offset-m1 white-text" id="centerCont" >
+              <p class="font-poppins flow-text" >find craft coffee near you</p>
+              <div class="col s1 m1 l1 offset-l5 offset-m5 offset-s5">
+                <a id="more"><i class="material-icons white-text" >more_horiz</i></a>
+              </div>
+            </div>
+              <div class="col s12 m10 l6 offset-l3 offset-m1 white-text" id="inputArea">
+                <input type="text" placeholder="location" id="inputLocation">
+                <input type="text" placeholder="distance" id="inputDistance">
+              </div>
+
+
+            <div class="col s12 m10 l6 offset-l3 offset-m1">
+              <a href="app.html" class="btn white black-text waves-effect waves-teal" id="longBtn">lets go</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
