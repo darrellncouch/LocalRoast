@@ -1,3 +1,16 @@
+$(document).ready(function(){
+  var menu = $("#menu");
+  var side = $("#side");
+  
+  $(menu).click(function(){
+    if($(side).css("display") == "none"){
+      $(side).css("display", "inline-block");
+    }else{
+      $(side).css("display", "none");
+    }
+  })
+})
+
 var map;
 var service;
 var infowindow;
@@ -6,6 +19,10 @@ var infowindow;
 $(".button-collapse").sideNav();
 // Initialize collapsible (uncomment the line below if you use the dropdown variation)
 //$('.collapsible').collapsible();
+
+
+
+
 
 
 // 33.4483771,-112.0740372999999

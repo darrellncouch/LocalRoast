@@ -85,3 +85,25 @@ i:hover{
 #menu{
   color: black;
 }
+#side{
+  width: 300px;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  display: none;
+  margin-top: 65px;
+  overflow-y: scroll !important;
+}
+.forSide{
+  width: 200px !important;
+}
+#sideText{
+  margin-left: 20px;
+}
+#sidePic{
+  width:300px;
+  height: 200px;
+}
