@@ -107,3 +107,12 @@ i:hover{
   width:300px;
   height: 200px;
 }
+
+#sideSearch{
+  width: 200px;
+  margin-left: 35px;
+}
+#sideSearch:hover{
+  background-color: #4db6ac !important;
+  color: white !important;
+}
