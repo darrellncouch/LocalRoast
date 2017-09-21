@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var menu = $("#menu");
   var side = $("#side");
-  
+
   $(menu).click(function(){
     if($(side).css("display") == "none"){
       $(side).css("display", "inline-block");
@@ -9,24 +9,74 @@ $(document).ready(function(){
       $(side).css("display", "none");
     }
   })
+
+  //side search
+  let sideBtn = $("#sideSearch");
+  var sideLoc = $("#sideLocation");
+  var sideDist = $("#sideDistance");
+  var sideNav = $("#side");
+  var errorbox = $("#errorArea");
+
+
+
+
+  $("#sideSearch").click(function(){
+    //grab user input for location
+    let userInputL = $(sideLoc).val();
+    let userImputR = $(sideDist).val();
+
+    //get radius
+    if( userImputR.length === 0){
+      var distance = 500;
+    }else{
+      var distance = userImputR * 1609.34;
+    }
+
+    //empty error if present
+    $(errorbox).empty();
+
+    //if user clicks search with now input throw error
+    if($(sideLoc).val().length === 0 && $(sideDist).val().length === 0){
+      let errorText = $("<p style='color: red; font-style: italic; margin-left: 35px;'>Please enter a location or radius</p>");
+      $(errorbox).append(errorText);
+    //else send location to be geolocated
+    }else{
+      $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${userInputL}&key=AIzaSyBPM590byZIlUBoDC3Nq5E9yxTEFdT1gH8`, function(data) {
+
+        let newPOS = data.results["0"].geometry.location;
+        console.log(newPOS);
+
+
+        let newRequest = {
+          center: newPOS,
+          location: newPOS,
+          radius: distance,
+          query: 'coffee'
+        }
+
+        console.log(newRequest);
+        infoWindow.setPosition(newPOS);
+        infoWindow.setContent('New location.');
+        infoWindow.open(map);
+        map.setCenter(newPOS);
+        service.textSearch(newRequest, callback);
+
+      })
+    }
+  })
 })
+
+
 
 var map;
 var service;
 var infowindow;
 
-// Initialize collapse button
-$(".button-collapse").sideNav();
-// Initialize collapsible (uncomment the line below if you use the dropdown variation)
-//$('.collapsible').collapsible();
 
 
 
 
-
-
-// 33.4483771,-112.0740372999999
-
+// iniciates map an gives a center of Phoenix
 function initMap() {
   var pyrmont = new google.maps.LatLng(33.4483771,-112.0740372999999);
 
@@ -35,195 +85,8 @@ function initMap() {
       zoom: 13,
       styles:
 
-      // dark
-      // [
-      //   {
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#212121"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "elementType": "labels.icon",
-      //     "stylers": [
-      //       {
-      //         "visibility": "off"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#757575"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "elementType": "labels.text.stroke",
-      //     "stylers": [
-      //       {
-      //         "color": "#212121"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "administrative",
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#757575"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "administrative.country",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#9e9e9e"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "administrative.land_parcel",
-      //     "stylers": [
-      //       {
-      //         "visibility": "off"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "administrative.locality",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#bdbdbd"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "poi",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#757575"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "poi.park",
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#181818"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "poi.park",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#616161"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "poi.park",
-      //     "elementType": "labels.text.stroke",
-      //     "stylers": [
-      //       {
-      //         "color": "#1b1b1b"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "road",
-      //     "elementType": "geometry.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#2c2c2c"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "road",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#8a8a8a"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "road.arterial",
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#373737"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "road.highway",
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#3c3c3c"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "road.highway.controlled_access",
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#4e4e4e"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "road.local",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#616161"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "transit",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#757575"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "water",
-      //     "elementType": "geometry",
-      //     "stylers": [
-      //       {
-      //         "color": "#000000"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "featureType": "water",
-      //     "elementType": "labels.text.fill",
-      //     "stylers": [
-      //       {
-      //         "color": "#3d3d3d"
-      //       }
-      //     ]
-      //   }
-      // ]
 
-      // white and grey
+      // white and grey style for map
       [
         {
           "elementType": "geometry",
@@ -389,48 +252,66 @@ function initMap() {
 
     infoWindow = new google.maps.InfoWindow;
 
-  // var request = {
-  //   center: pyrmont,
-  //   location: pyrmont,
-  //
-  // };
+
+//HIDDEN FOR FUTURE FUNCTIONALITY
+//onclick input or default
+// var homePgBtn = $("#longBtn");
+// var homeInput = $("#inputLocation");
+// var homeDist = $("#inputDistance");
+//
+// $(homePgBtn).click(function(){
+//   if($(homeInput).text().length != 0 && $(homeDist).text().length != 0){
+//     console.log("yo");
+//     //place holder for loc and dist search function
+//   }else if($(homeInput).text().length != 0){
+//     console.log("hey");
+//     //place holder for loc search function
+//   }else if($(homeDist).text().length != 0){
+//     console.log("why");
+//     //place holder for dist search function
+//   }else{
+//     console.log("here");
+    //geolocation get and assign position if available.
   if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-              request = {
-                center: pos,
-                location: pos,
-                radius: '200',
-                query: 'coffee'
-              };
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+        request = {
+          center: pos,
+          location: pos,
+          radius: '200',
+          query: 'coffee'
+      };
 
-              infoWindow.setPosition(pos);
-              infoWindow.setContent('You are here.');
-              infoWindow.open(map);
-              map.setCenter(pos);
-              service.textSearch(request, callback);
-            }, function() {
-              handleLocationError(true, infoWindow, map.getCenter());
-
-            });
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
-
-  service = new google.maps.places.PlacesService(map);
-
-}
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.setContent('You are here.');
         infoWindow.open(map);
-      }
+        map.setCenter(pos);
+        service.textSearch(request, callback);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+
+      });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+    }
+  service = new google.maps.places.PlacesService(map);
+}
+
+
+
+//throws error if not available
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
+
 
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -456,12 +337,14 @@ function createMarkers(places) {
 
     var marker = new google.maps.Marker({
       map: map,
+      animation: google.maps.Animation.DROP,
       icon: image,
       title: place.name,
       position: place.geometry.location
     });
 
     // placesList.innerHTML += '<li>' + place.name + '</li>';
+
 
     bounds.extend(place.geometry.location);
   }

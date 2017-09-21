@@ -99,6 +99,7 @@ i:hover{
 }
 .forSide{
   width: 200px !important;
+  margin-left: 35px !important;
 }
 #sideText{
   margin-left: 20px;
