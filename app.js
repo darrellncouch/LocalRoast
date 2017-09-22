@@ -2,6 +2,8 @@ $(document).ready(function(){
   var menu = $("#menu");
   var side = $("#side");
 
+  console.log(localStorage.getItem('mainL'));
+
   $(menu).click(function(){
     if($(side).css("display") == "none"){
       $(side).css("display", "inline-block");
@@ -253,24 +255,6 @@ function initMap() {
     infoWindow = new google.maps.InfoWindow;
 
 
-//HIDDEN FOR FUTURE FUNCTIONALITY
-//onclick input or default
-// var homePgBtn = $("#longBtn");
-// var homeInput = $("#inputLocation");
-// var homeDist = $("#inputDistance");
-//
-// $(homePgBtn).click(function(){
-//   if($(homeInput).text().length != 0 && $(homeDist).text().length != 0){
-//     console.log("yo");
-//     //place holder for loc and dist search function
-//   }else if($(homeInput).text().length != 0){
-//     console.log("hey");
-//     //place holder for loc search function
-//   }else if($(homeDist).text().length != 0){
-//     console.log("why");
-//     //place holder for dist search function
-//   }else{
-//     console.log("here");
     //geolocation get and assign position if available.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
