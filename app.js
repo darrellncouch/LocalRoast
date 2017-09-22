@@ -2,7 +2,7 @@ $(document).ready(function(){
   var menu = $("#menu");
   var side = $("#side");
 
-  console.log(localStorage.getItem('mainL'));
+
 
   $(menu).click(function(){
     if($(side).css("display") == "none"){
@@ -254,10 +254,49 @@ function initMap() {
 
     infoWindow = new google.maps.InfoWindow;
 
+  //use location or destination
+  if(localStorage.getItem('mainL')){
+    //get radius
+    if(localStorage.getItem('mainD')){
+      var distance = localStorage.getItem('mainD') * 1609.34;
+    }else{
+      var distance = 500;
+    }
+    var customLoc =localStorage.getItem('mainL');
 
+    console.log("hitting this");
+
+    $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${customLoc}&key=AIzaSyBPM590byZIlUBoDC3Nq5E9yxTEFdT1gH8`, function(data) {
+
+      let newPOS = data.results["0"].geometry.location;
+      console.log(newPOS);
+
+
+      let newRequest = {
+        center: newPOS,
+        location: newPOS,
+        radius: 500,
+        query: 'coffee'
+      }
+
+      console.log(newRequest);
+      infoWindow.setPosition(newPOS);
+      infoWindow.setContent('New location.');
+      infoWindow.open(map);
+      map.setCenter(newPOS);
+      service.textSearch(newRequest, callback);
+
+
+      localStorage.removeItem("mainL");
+      localStorage.removeItem("mainD");
+
+    })
+
+
+  }else{
     //geolocation get and assign position if available.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -282,6 +321,7 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
     }
+  }
   service = new google.maps.places.PlacesService(map);
 }
 
