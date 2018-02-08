@@ -7,5 +7,5 @@
 * JQuery
 * Google Maps API
 
-![alt text]('./images/localroastHome.jpg')
-![alt text]('./images/localroastApp.jpg')
+![alt text](./localroastHome.jpeg)
+![alt text](./localroastApp.jpeg)
